@@ -89,6 +89,32 @@ th{color:var(--muted);font-weight:600} td.n,th.n{text-align:right;font-variant-n
 <p class="note">No leader-approval figure is published for One Nation (it has no equivalent state-leader profile in this poll). The "Better Premier" question is Allan vs Wilson only.</p>
 </div>
 </div>
+<div class="panel">
+<h3 style="margin-top:0">Top voter concerns about each side <span class="muted" style="font-weight:400;font-size:13px">— open-ended question, % of respondents mentioning</span></h3>
+<div class="grid2">
+<div>
+<p style="margin:0 0 4px"><b style="color:var(--alp)">A re-elected Labor government (Allan)</b></p>
+<ol style="margin:0;padding-left:20px">
+<li>State debt / budget / financial mismanagement — <b>65%</b></li>
+<li>Corruption, integrity &amp; transparency (incl. CFMEU links) — <b>55%</b></li>
+<li>Crime &amp; law and order — <b>40%</b></li>
+<li>Leadership quality / competence / "out of touch" — <b>35%</b></li>
+<li>Cost of living, taxes &amp; economic pressure — <b>30%</b></li>
+</ol>
+</div>
+<div>
+<p style="margin:0 0 4px"><b style="color:var(--lnp)">A Coalition government (Wilson)</b></p>
+<ol style="margin:0;padding-left:20px">
+<li>Lack of policy clarity &amp; vision — <b>45%</b></li>
+<li>Inexperience of Wilson &amp; her frontbench — <b>35%</b></li>
+<li>Internal division &amp; instability — <b>30%</b></li>
+<li>Fear of service cuts / "pro-business" agenda — <b>30%</b></li>
+<li>Social policy (anti-immigration / LGBTQIA+ rollback fears — or, conversely, "not conservative enough") — <b>30%</b></li>
+</ol>
+</div>
+</div>
+<p class="note" style="margin-bottom:0">Open-ended "what, if anything, would concern you about…" questions (&gt;1,000 responses each); respondents could raise several concerns, so figures sum to more than 100%.</p>
+</div>
 <p class="note" style="margin-top:2px">Source: Roy Morgan, Victorian State Voting Intention, 22–24 April 2026. The takeaway for the model below: a deeply unpopular Labor government, a split-rated Liberal opposition leader who nonetheless leads on "Better Premier," and a One Nation vote that is large but that other voters resist on preferences (especially against the Coalition).</p>
 
 <h2>1 · Build a result</h2>
@@ -107,16 +133,21 @@ th{color:var(--muted);font-weight:600} td.n,th.n{text-align:right;font-variant-n
 <div class="ctrl"><label>Greens firewall (avg Greens→Labor) <b><span id="vG2A">91</span>%</b></label>
 <input type="range" id="sG2A" min="80" max="95" value="91" step="1">
 <small>Composition-based per seat (stronger in progressive seats). Reused from the federal model.</small></div>
-<div class="ctrl"><label>Monte-Carlo seat noise (±) <b><span id="vNz">4.0</span></b></label>
-<input type="range" id="sNz" min="1" max="7" value="4" step="0.5"></div>
+<div class="ctrl"><label>Monte-Carlo noise (× credible interval) <b><span id="vNz">1.0</span></b></label>
+<input type="range" id="sNz" min="0" max="2" value="1" step="0.1">
+<small>Per-party (ON ±4.8, ALP ±3.4 …, from federal MRP MoEs as a proxy); seat shares renormalised to 100.</small></div>
 <label style="display:flex;gap:8px;align-items:center;font-size:13px;color:var(--muted);margin-top:6px">
 <input type="checkbox" id="cBloc" checked> Coalition would form government with One Nation (combined right bloc)</label>
 <label style="display:flex;gap:8px;align-items:center;font-size:13px;color:var(--muted);margin-top:6px">
-<input type="checkbox" id="cInd" checked> Independents back Labor / never install One Nation</label>
+<input type="checkbox" id="cInd" checked> Ex-Labor independents (Ringwood, South Barwon) retain their seats &amp; never install One Nation (off = each seat goes to its federal-MRP-projected winner)</label>
 <label style="display:flex;gap:8px;align-items:center;font-size:13px;color:var(--muted);margin-top:6px">
 <input type="checkbox" id="cTeal"> Teals win Kew &amp; Hawthorn (Liberal heartland backlash; they won't back One Nation)</label>
 <label style="display:flex;gap:8px;align-items:center;font-size:13px;color:var(--muted);margin-top:6px">
 <input type="checkbox" id="cRestrict"> One Nation contests only its 40 strongest seats (limited candidate field)</label>
+<label style="display:flex;gap:8px;align-items:center;font-size:13px;color:var(--muted);margin-top:6px">
+<input type="checkbox" id="cIndi"> North-east "Voices" independents win the Indi-overlap seats (Benambra, Ovens Valley, Eildon)</label>
+<label style="display:flex;gap:8px;align-items:center;font-size:13px;color:var(--muted);margin-top:6px">
+<input type="checkbox" id="cChinese"> Chinese-Australian seats stay with Labor (Bayswater, Glen Waverley, Box Hill, Ashwood — high-Chinese areas in Menzies/Aston/Chisholm)</label>
 </div>
 <div class="panel">
 <div class="muted" style="font-size:13px;text-transform:uppercase;letter-spacing:.5px">Projection at these settings</div>
@@ -171,10 +202,13 @@ This is a <b>scenario tool, not a forecast.</b> The seat outcome is most sensiti
 <ul class="muted" style="margin:6px 0 0;padding-left:20px">
 <li><b>One Nation's distribution is a federal-pattern proxy.</b> State and federal voting differ; the projection captures ON's broad regional/outer-metro shape but not seat-specific state dynamics.</li>
 <li><b>Independents are lightly modelled.</b> The two current independents (Ringwood, South Barwon) are protected as incumbent holds — but both are ex-Labor members now sitting as independents, with no 2022 independent primary, so their hold is an incumbency assumption rather than a vote-based estimate. Strong independent <i>challenges</i> in Liberal seats (Hawthorn/Kew/Malvern-type teal runs) are only as strong as the 2022 independent vote in the data.</li>
-<li><b>Preference flows are reused from the federal model</b> and only roughly Victoria-calibrated. The Coalition→ON default (70%) reflects the Victorian Liberals' reported plan to preference ON ahead of Labor (The Age, 26 Apr 2026); the final decision is seat-by-seat by a five-person committee after nominations close.</li>
+<li><b>Preference flows are grounded in observed actuals, not Victoria-fitted.</b> The transfer rates are taken from the 2025 federal election and the 2026 SA state election (Coalition→ON ~70%; ON→Coalition ~69%, the SA actual) rather than guessed — but there are no standard errors and no Victorian flow data, so they are applied uniformly across VIC seats. The Coalition→ON default (70%) also reflects the Victorian Liberals' reported plan to preference ON ahead of Labor (The Age, 26 Apr 2026); the final decision is seat-by-seat by a five-person committee after nominations close.</li>
+<li><b>The Greens firewall is a composition-based proxy.</b> Each seat's Greens→Labor retention is set from how conservative the seat is (Coalition+ON share), a curve fitted to the SA-2026 flows and reused from the federal model — not a Victorian estimate. The §1 slider controls that retention rate: <i>higher = stronger Labor firewall</i> (Greens preferences stay with Labor); pulling it <i>down</i> means weaker retention, so more Greens preferences leak rightward and a One Nation/Coalition result becomes more likely. It is a single-state fit, not a Victorian one.</li>
+<li><b>Two seat-specific toggles are judgement scenarios, not vote-modelled.</b> The "Chinese-Australian seats stay with Labor" toggle hand-forces four eastern-suburbs seats (Bayswater, Glen Waverley, Box Hill, Ashwood — the state overlap of the high-Chinese federal seats Menzies/Aston/Chisholm) to Labor; at baseline the engine projects all four as narrow Coalition wins (~53–55% 2CP), so the toggle reverses those flips on the thesis of a strong Chinese-Australian swing back to Labor. The "Indi-overlap independents" toggle similarly hand-awards three north-east seats. Both are assumptions to test, not estimates.</li>
 <li><b>The Liberal "preference-ON" backlash isn't modelled.</b> Reporting (and Kos Samaras) warn the same strategy that helps ON in Labor-vs-ON seats could <i>collapse</i> the small-c conservative Liberal vote in inner/middle Melbourne — making Hawthorn, Kew and Malvern more precarious and energising the teals. The model treats Coalition→ON as a clean transfer; it does not capture moderate-Liberal voters defecting in response, so it likely understates losses in the Liberal urban heartland.</li>
 <li><b>Upper house excluded.</b> The Legislative Council (40 seats, 8 multi-member regions) is a different system — balance of power there is a separate question.</li>
 <li><b>Candidate coverage is uncertain.</b> One Nation's vote surged only recently, leaving limited time to recruit and vet 88 lower-house candidates before a close election — so it may not stand everywhere, and weak or hastily-chosen candidates can underperform the party's polling. The default assumes it contests all 88 seats; the <b>"contests only its 40 strongest seats"</b> toggle models a constrained field, where in the seats it doesn't contest its vote reverts to the other parties (and it can only win where it actually runs).</li>
+<li><b>Uncertainty bands borrow the federal MRP's error.</b> The Monte-Carlo noise scales each party's per-seat draw by the federal MRP's published 95% credible intervals (ON ±4.8, ALP ±3.4, etc.) as a proxy, renormalising each seat to 100 — there is no Victorian posterior to draw from, so the spread is approximate and the cross-seat correlation structure is not captured.</li>
 <li><b>No state MRP.</b> A proper Victorian MRP would replace the federal projection and materially improve seat-level accuracy.</li>
 </ul>
 </div>
@@ -194,9 +228,20 @@ const NM={ALP:'Labor',LNP:'Coalition',ON:'One Nation',GRN:'Greens',IND:'Independ
 const MAJ=45, TOTAL=88;
 // Current independents — protected as incumbent holds (both are ex-Labor members now sitting as independents,
 // so they have no 2022 independent primary; their hold is modelled as an incumbency assumption).
-const VHOLD={"Ringwood":"IND","South Barwon":"IND","Richmond":"GRN","Melbourne":"GRN","Brunswick":"GRN"};
+const VHOLD={"Richmond":"GRN","Melbourne":"GRN","Brunswick":"GRN"};   // Greens strongholds, always held
+const EXLAB=new Set(["Ringwood","South Barwon"]);                    // ex-Labor independents — held only when the toggle is on
 const TEAL_FLIP=["Kew","Hawthorn"];   // optional: teal independents take these Liberal seats (backlash scenario)
-function held(name,teal){if(VHOLD[name])return VHOLD[name];if(teal&&TEAL_FLIP.indexOf(name)>=0)return 'IND';return null;}
+const INDI_FLIP=["Benambra","Ovens Valley","Eildon"];   // optional: north-east "Voices" independents win the Indi-overlap state seats
+// Labor-held eastern seats overlapping the high-Chinese-Australian federal seats (Menzies/Aston/Chisholm).
+const CHINESE_HOLD=["Bayswater","Glen Waverley","Box Hill","Ashwood"];
+function held(name,teal,exlab,indi,chinese){
+  if(VHOLD[name])return VHOLD[name];
+  if(exlab&&EXLAB.has(name))return 'IND';
+  if(teal&&TEAL_FLIP.indexOf(name)>=0)return 'IND';
+  if(indi&&INDI_FLIP.indexOf(name)>=0)return 'IND';
+  if(chinese&&CHINESE_HOLD.indexOf(name)>=0)return 'ALP';   // Chinese-Australian seats stay with Labor
+  return null;
+}
 function vicPrev(h){h=(h||'').toLowerCase();
   if(h.includes('independent labor'))return['Ind-Lab',COL.IND];
   if(h.includes('independent'))return['Ind',COL.IND];
@@ -217,10 +262,11 @@ const BASE_ON=SEATS.reduce((a,r)=>a+r[4],0)/SEATS.length;
 const ON40=new Set(SEATS.slice().sort((a,b)=>b[4]-a[4]).slice(0,40).map(r=>r[0]));
 function rr(p){return p/(1-p);}
 function seatRet(row,shift){const c=(row[3]+row[4])/(row[2]+row[3]+row[4]+row[5]);return Math.max(0.60,Math.min(0.985,1.106-0.514*c+shift));}
+const MOE_SD={ALP:3.4,LNP:4.1,ON:4.8,GRN:2.1,IND:1.5,OTH:3.6};   // federal MRP MoEs / 1.96, used as a proxy for the VIC projection's per-party uncertainty
 function weights(c2o){return{
   ALP:{GRN:8,IND:5,LNP:6,ON:4,OTH:1},
   LNP:{ON:7*rr(c2o)/rr(0.70),ALP:3,IND:4,GRN:0.3,OTH:2},
-  ON:{LNP:10,ALP:3.2,IND:2,GRN:0.3,OTH:2},
+  ON:{LNP:7,ALP:3.1,IND:2,GRN:0.3,OTH:2},   // ON->Coalition vs Labor = 69% (SA 2026 actual)
   GRN:{ALP:1,IND:3,LNP:0.7,ON:0.7,OTH:1},   // ALP weight set per-seat from seatRet
   IND:{ALP:6,GRN:3,LNP:3,ON:1.5,OTH:1},
   OTH:{ON:5,LNP:4,ALP:2.5,GRN:1.5,IND:2}};}
@@ -233,9 +279,9 @@ function primaries(row,onT,frm,restrict){
   }
   let d=onT-BASE_ON,a=row[2],l=row[3],o=row[4],g=row[5],i=row[6],x=row[7];o+=d;l-=d*frm;a-=d*(1-frm);if(l<3)l=3;if(a<3)a=3;if(o<0)o=0;return[a,l,o,g,i,x];}
 let _sp=null;function gauss(m,s){if(_sp!==null){let v=_sp;_sp=null;return m+s*v;}let u,w,c;do{u=Math.random()*2-1;w=Math.random()*2-1;c=u*u+w*w;}while(c>=1||c===0);let mul=Math.sqrt(-2*Math.log(c)/c);_sp=w*mul;return m+s*u*mul;}
-function tally(onT,frm,W,noise,shift,teal,restrict){let c={ALP:0,LNP:0,ON:0,GRN:0,IND:0,OTH:0};for(const row of SEATS){let pr=primaries(row,onT,frm,restrict);if(noise>0){let natl=gauss(0,noise*0.6);pr=pr.map((x,i)=>Math.max(0,x+gauss(0,noise)+(i===2?natl:0)));}W.GRN.ALP=0.7*rr(seatRet(row,shift));c[held(row[0],teal)||irv(pr,W)]++;}return c;}
-function govt(c,indLabor,rightBloc){
-  const lab=c.ALP+c.GRN+(indLabor?c.IND:0);
+function tally(onT,frm,W,noise,shift,teal,restrict,exlab,indi,chinese){let c={ALP:0,LNP:0,ON:0,GRN:0,IND:0,OTH:0};for(const row of SEATS){let pr=primaries(row,onT,frm,restrict);if(noise>0){let natl=gauss(0,3.0*noise);pr=pr.map((x,i)=>Math.max(0,x+gauss(0,MOE_SD[P[i]]*noise)+(i===2?natl:0)));let tot=pr.reduce((a,b)=>a+b,0);if(tot>0)pr=pr.map(x=>100*x/tot);}W.GRN.ALP=0.7*rr(seatRet(row,shift));c[held(row[0],teal,exlab,indi,chinese)||irv(pr,W)]++;}return c;}
+function govt(c,rightBloc){
+  const lab=c.ALP+c.GRN+c.IND;   // independents back Labor for confidence; they never join a One Nation/right bloc
   const rgt=rightBloc?(c.ON+c.LNP+c.OTH):0;
   if(c.ALP>=MAJ)return'Labor majority';
   if(lab>=MAJ&&lab>=rgt)return'Labor minority';
@@ -245,18 +291,21 @@ function govt(c,indLabor,rightBloc){
   return'Hung parliament';
 }
 const $=id=>document.getElementById(id);
-function read(){const g=+$('sG2A').value;return{on:+$('sOn').value,frm:+$('sFrm').value/100,c2o:+$('sC2O').value/100,g:g,shift:0.085+(g-91)/100,nz:+$('sNz').value,ind:$('cInd').checked,bloc:$('cBloc').checked,teal:$('cTeal').checked,restrict:$('cRestrict').checked};}
+function read(){const g=+$('sG2A').value;return{on:+$('sOn').value,frm:+$('sFrm').value/100,c2o:+$('sC2O').value/100,g:g,shift:0.085+(g-91)/100,nz:+$('sNz').value,ind:$('cInd').checked,bloc:$('cBloc').checked,teal:$('cTeal').checked,restrict:$('cRestrict').checked,indi:$('cIndi').checked,chinese:$('cChinese').checked};}
 const vCol={'Labor majority':'#cc2030','Labor minority':'#cc2030','Hung parliament':'#ffc857','One Nation-led government':'#f57e20','One Nation majority':'#f57e20','Coalition-led government':'#3d6fe0','Coalition majority':'#3d6fe0'};
 function render(){
   const s=read();
   $('vOn').textContent=s.on;$('vFrm').textContent=Math.round(s.frm*100);$('vC2O').textContent=Math.round(s.c2o*100);$('vG2A').textContent=s.g;$('vNz').textContent=s.nz.toFixed(1);
   const W=weights(s.c2o);
-  const c=tally(s.on,s.frm,W,0,s.shift,s.teal,s.restrict);   // central (noise-free) projection for the seat bars
-  let html='';P.forEach(p=>{const w=Math.min(100,c[p]/MAJ*100);html+='<div class="barrow"><span class="nm">'+NM[p]+'</span><div class="bar"><span style="width:'+w+'%;background:'+COL[p]+'"></span></div><span class="vl">'+c[p]+'</span></div>';});
-  html+='<div class="note" style="margin-top:6px">Majority line = 45 of 88. Bars = central seat projection; the header &amp; percentages below are from the 1,200-run simulation.</div>';$('bars').innerHTML=html;
-  const N=1200;let res={};for(let k=0;k<N;k++){const cc=tally(s.on,s.frm,W,s.nz,s.shift,s.teal,s.restrict);res[govt(cc,s.ind,s.bloc)]=(res[govt(cc,s.ind,s.bloc)]||0)+1;}
+  // One Monte Carlo drives everything: the distribution, the header, AND the seat bars — so they stay consistent.
+  const N=1200;let res={},allSum={ALP:0,LNP:0,ON:0,GRN:0,IND:0,OTH:0};
+  for(let k=0;k<N;k++){const cc=tally(s.on,s.frm,W,s.nz,s.shift,s.teal,s.restrict,s.ind,s.indi,s.chinese);const gg=govt(cc,s.bloc);res[gg]=(res[gg]||0)+1;P.forEach(p=>allSum[p]+=cc[p]);}
   const gMode=Object.keys(res).reduce((a,b)=>res[a]>=res[b]?a:b);
   $('verdict').innerHTML='Most likely: <span style="color:'+(vCol[gMode]||'#fff')+'">'+gMode+'</span> <span class="muted" style="font-size:15px;font-weight:400">('+(res[gMode]/N*100).toFixed(0)+'%)</span>';
+  // bars = expected (mean) seats across ALL simulation runs — moves monotonically with the inputs
+  const bar={};P.forEach(p=>bar[p]=Math.round(allSum[p]/N));
+  let html='';P.forEach(p=>{const w=Math.min(100,bar[p]/MAJ*100);html+='<div class="barrow"><span class="nm">'+NM[p]+'</span><div class="bar"><span style="width:'+w+'%;background:'+COL[p]+'"></span></div><span class="vl">'+bar[p]+'</span></div>';});
+  html+='<div class="note" style="margin-top:6px">Majority line = 45 of 88. Bars = expected (average) seats across the 1,200 simulations; the header is the single most-likely outcome.</div>';$('bars').innerHTML=html;
   const order=['Labor majority','Labor minority','Hung parliament','Coalition majority','Coalition-led government','One Nation-led government','One Nation majority'];
   let mc='';const ong=((res['One Nation-led government']||0)+(res['One Nation majority']||0))/N;
   order.forEach(k=>{if(res[k])mc+='<div class="prob"><span style="color:'+(vCol[k]||'#fff')+'">'+k+'</span><b>'+(res[k]/N*100).toFixed(1)+'%</b></div>';});
@@ -274,7 +323,7 @@ function render(){
 function closest(elId,A,B,n,cols,illus){
   const s=read(),W=weights(s.c2o),rows=[];
   for(const row of SEATS){
-    if(held(row[0],s.teal))continue;                 // protected/held seats excluded
+    if(held(row[0],s.teal,s.ind,s.indi,s.chinese))continue;    // protected/held seats excluded
     const pr=primaries(row,s.on,s.frm,s.restrict);W.GRN.ALP=0.7*rr(seatRet(row,s.shift));const r=irv2cp(pr,W);
     if((r.winner===A&&r.loser===B)||(r.winner===B&&r.loser===A))
       rows.push({name:row[0],winner:r.winner,margin:r.share-50,pr:pr});}
@@ -296,7 +345,7 @@ function closest(elId,A,B,n,cols,illus){
 const CAP={all:null,mel:[-37.84,145.0,9]};
 let GEOLAYER=null,MAP=null,mapInfo=null,computed={};
 function irvFinal(arr,W){let v={};P.forEach((p,i)=>{if(arr[i]>0)v[p]=arr[i];});while(true){let k=Object.keys(v),tot=0;k.forEach(x=>tot+=v[x]);let top=k.reduce((a,b)=>v[a]>=v[b]?a:b);if(v[top]>tot/2||k.length<=2)return{top,share:100*v[top]/tot};let lo=k.reduce((a,b)=>v[a]<=v[b]?a:b);let amt=v[lo];delete v[lo];let rem=Object.keys(v),s=0,wt={};rem.forEach(t=>{wt[t]=(W[lo]&&W[lo][t])||0;s+=wt[t];});if(s>0)rem.forEach(t=>v[t]+=amt*wt[t]/s);}}
-function recompute(){const s=read(),W=weights(s.c2o),t={ALP:0,LNP:0,ON:0,GRN:0,IND:0,OTH:0};for(const row of SEATS){const pr=primaries(row,s.on,s.frm,s.restrict);W.GRN.ALP=0.7*rr(seatRet(row,s.shift));const hw=held(row[0],s.teal);if(hw){computed[row[0]]={winner:hw,margin:8,pr:pr,held:true};t[hw]++;}else{const ft=irvFinal(pr,W);computed[row[0]]={winner:ft.top,margin:ft.share-50,pr:pr};t[ft.top]++;}}return t;}
+function recompute(){const s=read(),W=weights(s.c2o),t={ALP:0,LNP:0,ON:0,GRN:0,IND:0,OTH:0};for(const row of SEATS){const pr=primaries(row,s.on,s.frm,s.restrict);W.GRN.ALP=0.7*rr(seatRet(row,s.shift));const hw=held(row[0],s.teal,s.ind,s.indi,s.chinese);if(hw){computed[row[0]]={winner:hw,margin:8,pr:pr,held:true};t[hw]++;}else{const ft=irvFinal(pr,W);computed[row[0]]={winner:ft.top,margin:ft.share-50,pr:pr};t[ft.top]++;}}return t;}
 function seatStyle(name){const c=computed[name];if(!c)return{fillColor:'#333',fillOpacity:.3,weight:.4,color:'#0c0e12'};return{fillColor:COL[c.winner],fillOpacity:0.45+0.5*Math.min(1,c.margin/18),weight:.5,color:'#0c0e12'};}
 function infoHTML(name){const c=computed[name];if(!c)return '<b>'+name+'</b>';return '<b>'+name+'</b><br>Predicted: <b style="color:'+COL[c.winner]+'">'+NM[c.winner]+'</b> · 2CP +'+c.margin.toFixed(1)+'<br><span style="color:#9aa7b8">FP: ALP '+c.pr[0].toFixed(0)+' · Coal '+c.pr[1].toFixed(0)+' · ON '+c.pr[2].toFixed(0)+' · Grn '+c.pr[3].toFixed(0)+'</span>';}
 function updateMap(){const t=recompute();if(GEOLAYER)GEOLAYER.setStyle(f=>seatStyle(f.properties.name));const sm=$('mapsum');if(sm)sm.innerHTML='ALP <b>'+t.ALP+'</b> · ON <b>'+t.ON+'</b> · Coalition <b>'+t.LNP+'</b> · Grn <b>'+t.GRN+'</b> · IND <b>'+t.IND+'</b>';}
@@ -320,7 +369,7 @@ function initMap(){
     setTimeout(()=>{MAP.invalidateSize();MAP.fitBounds(GEOLAYER.getBounds(),{padding:[10,10]});},200);
   }catch(err){$('map').innerHTML='<div style="padding:24px;color:#cc2030">Map error: '+err.message+'</div>';}
 }
-['sOn','sFrm','sC2O','sG2A','sNz','cInd','cBloc','cTeal','cRestrict'].forEach(id=>$(id).addEventListener('input',render));
+['sOn','sFrm','sC2O','sG2A','sNz','cInd','cBloc','cTeal','cRestrict','cIndi','cChinese'].forEach(id=>$(id).addEventListener('input',render));
 render();
 if(document.readyState==='complete')initMap();else window.addEventListener('load',initMap);
 </script>
